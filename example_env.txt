@@ -1,0 +1,8 @@
+# Database settings
+DB_HOST=localhost
+DB_USER=db_user
+DB_PASS= new
+DB_NAME=postgres
+
+# Bot settings
+TELEGRAM_TOKEN= 
