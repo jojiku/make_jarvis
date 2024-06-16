@@ -3,8 +3,7 @@ import whisper
 
 device = "cuda" if torch.cuda.is_available() else "cpu"
 model = whisper.load_model("tiny").to(device)
-
-# Existing imports and functions
+ 
 from src.bot.telegram_bot import init_telegram_bot
 from src.model.conversation_model import ConversationHandler as AIConversationHandler 
 ai_handler = AIConversationHandler()
