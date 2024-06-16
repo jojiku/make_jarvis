@@ -11,10 +11,10 @@ from langchain_community.chat_message_histories import (
     PostgresChatMessageHistory,
 )
 from langchain_groq import ChatGroq 
-from src.model.system_prompt import russian_persona, uwu_persona
+from src.model.system_prompt import russian_persona, uwu_persona, funny_persona
 
 prompt = ChatPromptTemplate.from_messages([ 
-        ("system",  uwu_persona),
+        ("system",  funny_persona),
 
         MessagesPlaceholder(variable_name="chat_history"),
         ("human", "{input}")
@@ -31,12 +31,13 @@ class ConversationHandler:
             print(f"Failed to connect to database: {e}")
             raise
 
-    def handle_conversation(self, user_name: str, new_question: str) -> str:
+    def handle_conversation(self, user_name: str, new_question) -> str:
          
         try:
             history = self.db_handler.get_user_history(user_name)
             history_reversed = history[::-1]
             messages = [{'role': 'user', 'content': item['message_sent']} for item in history_reversed]
+
             messages.append({'role': 'user', 'content': new_question})
 
             llm = ChatGroq(temperature=0,  
@@ -61,6 +62,8 @@ class ConversationHandler:
             if new_question in {'new', 'reset', 'restart', 'New'}:
                 memory.clear()
 
+             
+
             chain = LLMChain(
                 llm=llm,
                 prompt=prompt,
@@ -70,6 +73,7 @@ class ConversationHandler:
             input_data = {"input": messages[-1]['content']}
             response_text = chain.invoke(str(input_data)) 
             self.db_handler.insert_conversation(user_name, new_question, response_text["text"])
+            
             
 
 
