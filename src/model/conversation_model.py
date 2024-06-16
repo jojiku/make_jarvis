@@ -41,7 +41,7 @@ class ConversationHandler:
             messages.append({'role': 'user', 'content': new_question})
 
             llm = ChatGroq(temperature=0,  
-               groq_api_key='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',
+               groq_api_key=' ',
                model_name='llama3-70b-8192',
                max_tokens=20000,
                streaming=True)
