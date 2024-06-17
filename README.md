@@ -7,7 +7,7 @@ Homework on ITMO course - practical usage of generative models
   ⚡ Chit chat bot based on llama3 + postgreSQL ⚡
   </p>
 </div>
-
+Working Gellada is here: https://t.me/helper_111bot
 **Objectives:**
 
 Basic Solution (60 points):
